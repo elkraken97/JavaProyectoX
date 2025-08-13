@@ -7,8 +7,8 @@ public class User {
 
     private long id;
     private String nombre;
-    private Set<Integer> seguidores;
-    private Set<Integer> siguiendo;
+    private Set<Long> seguidores;
+    private Set<Long> siguiendo;
 
 
     public User(String nombre) {
@@ -35,19 +35,35 @@ public class User {
         this.nombre = nombre;
     }
 
-    public Set<Integer> getSeguidores() {
+    public Set<Long> getSeguidores() {
         return seguidores;
     }
 
-    public void setSeguidores(Set<Integer> seguidores) {
+    public boolean seguirAUsuario(Long usrId){
+        return siguiendo.add(usrId);
+    }
+
+    public boolean dejarDeSeguir(Long usrId){
+        return siguiendo.remove(usrId);
+    }
+
+    public boolean nuevoSeguidor(Long usrId){
+        return seguidores.add(usrId);
+    }
+
+    public boolean dejoDeseguir(Long usrID){
+        return  seguidores.remove(usrID);
+    }
+
+    public void setSeguidores(Set<Long> seguidores) {
         this.seguidores = seguidores;
     }
 
-    public Set<Integer> getSiguiendo() {
+    public Set<Long> getSiguiendo() {
         return siguiendo;
     }
 
-    public void setSiguiendo(Set<Integer> siguiendo) {
+    public void setSiguiendo(Set<Long> siguiendo) {
         this.siguiendo = siguiendo;
     }
 }

@@ -16,7 +16,6 @@ public class PostServicio {
 
     public void quitarLike(long idUsuario,long idPost) {
 
-
         repoPost.buscarPostsPorID(idPost).ifPresent(p->{
             if (p.unlike(idUsuario)) {
                 System.out.println("Like quitado");
