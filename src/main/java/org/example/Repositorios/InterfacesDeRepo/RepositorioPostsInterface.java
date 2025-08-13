@@ -1,7 +1,6 @@
-package org.example.Repositorios;
+package org.example.Repositorios.InterfacesDeRepo;
 
 import org.example.Modelos.Post;
-import org.example.Modelos.User;
 
 import java.util.List;
 import java.util.Optional;

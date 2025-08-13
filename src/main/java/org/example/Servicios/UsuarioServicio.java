@@ -4,7 +4,7 @@ import org.example.Excepciones.UsuarioNoAgregado;
 import org.example.Excepciones.UsuarioNoEncontrado;
 import org.example.Excepciones.UsuarioNoSeguido;
 import org.example.Modelos.User;
-import org.example.Repositorios.RepositorioUsuarioInterface;
+import org.example.Repositorios.InterfacesDeRepo.RepositorioUsuarioInterface;
 
 import java.util.Collections;
 import java.util.List;

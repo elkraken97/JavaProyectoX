@@ -2,7 +2,7 @@ package org.example.Servicios;
 
 import org.example.Excepciones.PostNoEncontrado;
 import org.example.Modelos.Post;
-import org.example.Repositorios.RepositorioPostsInterface;
+import org.example.Repositorios.InterfacesDeRepo.RepositorioPostsInterface;
 
 import java.util.Collections;
 import java.util.List;

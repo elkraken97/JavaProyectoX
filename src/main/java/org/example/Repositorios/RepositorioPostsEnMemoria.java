@@ -1,10 +1,11 @@
 package org.example.Repositorios;
 
 import org.example.Modelos.Post;
+import org.example.Repositorios.InterfacesDeRepo.RepositorioPostsInterface;
 
 import java.util.*;
 
-public class RepositorioPostsEnMemoria implements RepositorioPostsInterface{
+public class RepositorioPostsEnMemoria implements RepositorioPostsInterface {
 
     private long count = 1;
     private final Map<Long,Post> posts = new HashMap<>();

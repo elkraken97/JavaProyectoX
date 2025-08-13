@@ -1,4 +1,4 @@
-package org.example.Repositorios;
+package org.example.Repositorios.InterfacesDeRepo;
 
 import org.example.Modelos.User;
 

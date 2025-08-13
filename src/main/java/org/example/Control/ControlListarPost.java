@@ -1,7 +1,7 @@
 package org.example.Control;
 
 import org.example.Modelos.Post;
-import org.example.Repositorios.RepositorioPostsInterface;
+import org.example.Repositorios.InterfacesDeRepo.RepositorioPostsInterface;
 
 import java.util.List;
 
