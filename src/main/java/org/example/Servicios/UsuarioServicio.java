@@ -11,6 +11,10 @@ import java.util.List;
 
 public class UsuarioServicio {
 
+
+
+
+
      private final RepositorioUsuarioInterface repoUsuario;
 
     public UsuarioServicio(RepositorioUsuarioInterface repoUsuario) {
@@ -80,9 +84,6 @@ public class UsuarioServicio {
     public User usuarioPorNombre(String name){
         return repoUsuario.buscarUsuarioPorNombre(name).orElseThrow(UsuarioNoEncontrado::new);
     }
-
-
-
 
     public void borrarUsuario(long idUsuarioABorrar){
 
