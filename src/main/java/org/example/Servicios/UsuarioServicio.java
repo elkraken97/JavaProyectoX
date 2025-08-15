@@ -94,5 +94,16 @@ public class UsuarioServicio {
 
     }
 
+    public String procesarUsuario(User usr){
+
+        return "Nombre del usuario:" + usr.getNombre() + "\n" +
+                "ID:" + usr.getId() + "\n" +
+                "Numero De Seguidores:" + usr.getSeguidores().size();
+
+
+
+    }
+
+
 
 }

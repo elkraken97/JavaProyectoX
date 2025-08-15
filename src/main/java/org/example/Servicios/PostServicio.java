@@ -97,21 +97,10 @@ public class PostServicio {
 
 
 
-    private StringBuilder procesarPost(long idPost){
-        Post postActual = repoPost.buscarPostsPorID(idPost).orElse(null);
-        StringBuilder bd = new StringBuilder();
-        if (postActual!=null){
+    public String procesarPost(Post postActual){
 
 
-        bd.append("Id del post:").append(postActual.getId()).append("\n");
-        bd.append("Contenido del post:\n").append(postActual.getContenido()).append("\n");
-        bd.append("Publicado el ").append(postActual.getCreacion()).append("\n");
-        bd.append("Likes:").append(postActual.getLikes()).append("\n");}
-        else{
-            bd.append("El post con el id ").append(idPost).append(" No fue encontrado");
-        }
-
-//       Usuario usr = repoUsr.consultarUsuario(postActual.getIdCreador()).orElse(null);
+        //       Usuario usr = repoUsr.consultarUsuario(postActual.getIdCreador()).orElse(null);
 //        String nickname = "";
 //        int id = -1;
 //        if (usr != null){
@@ -126,7 +115,10 @@ public class PostServicio {
 //        System.out.println("Publicado el:"+postActual.getFechaPublicada());
 //        System.out.println("Likes:"+postActual.getLikes());
 //        // "--------------//Presiona Enter para el siguiente post//---------------"
-    return bd;
+           return "Id del post:" + postActual.getId() + "\n" +
+                   "Contenido del post:\n" + postActual.getContenido() + "\n" +
+                   "Publicado el " + postActual.getCreacion() + "\n" +
+                   "Likes:" + postActual.getLikes();
     }
 
 

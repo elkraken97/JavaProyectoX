@@ -15,6 +15,7 @@ public class InputDeDatosConsola implements InputDeDatos{
 
         while (true){
             try{
+                System.out.println(msj);
                 return sc.nextLine().trim();
             }catch (Exception e){
                 System.out.println("Has ingresado erroneamente el dato "+e.getMessage());
@@ -28,6 +29,7 @@ public class InputDeDatosConsola implements InputDeDatos{
     public long recibirLong(String msj) {
         while (true){
             try{
+                System.out.println(msj);
                 return sc.nextLong();
             }catch (Exception e){
                 System.out.println("Has ingresado erroneamente el long");
@@ -39,10 +41,18 @@ public class InputDeDatosConsola implements InputDeDatos{
     public int recibirInteger(String msj) {
         while (true){
             try{
+                System.out.println(msj);
                 return Integer.parseInt(sc.nextLine().trim());
             }catch (Exception e){
                 System.out.println("Has ingresado erroneamente el long");
             }
         }
     }
+
+    @Override
+    public void pausaENInput() {
+        sc.nextLine();
+    }
+
+
 }
