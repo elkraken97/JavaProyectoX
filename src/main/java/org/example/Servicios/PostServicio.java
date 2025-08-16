@@ -1,11 +1,14 @@
 package org.example.Servicios;
 
 import org.example.Excepciones.PostNoEncontrado;
+import org.example.Excepciones.SinPostsCreados;
+import org.example.Excepciones.UsuarioNoEncontrado;
 import org.example.Modelos.Post;
 import org.example.Repositorios.InterfacesDeRepo.RepositorioPostsInterface;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class PostServicio {
     private final RepositorioPostsInterface repoPost;
@@ -14,49 +17,32 @@ public class PostServicio {
        this.repoPost=repoo;
     }
 
-    public void quitarLike(long idUsuario,long idPost) {
+    public boolean quitarLike(long idUsuario,long idPost) {
 
-        repoPost.buscarPostsPorID(idPost).ifPresent(p->{
-            if (p.unlike(idUsuario)) {
-                System.out.println("Like quitado");
-            }else{
-                System.out.println("No habias dado like a esta publicacon");
-            }
-        });
+       Post post = repoPost.buscarPostsPorID(idPost).orElseThrow(()->new PostNoEncontrado("Post no encontrado"));
+        return  post.unlike(idUsuario);
 
+    }
+
+    public boolean darLike(long idUsuario,long idPost){
+    Post post = repoPost.buscarPostsPorID(idPost).orElseThrow(()->new PostNoEncontrado("Post no encontrado"));
+    return post.likear(idUsuario);
     }
 
 
 
-    public void darLike(long idUsuario,long idPost){
-
-        repoPost.buscarPostsPorID(idPost).ifPresent(p -> {
-            if (p.likear(idUsuario)) {
-                System.out.println("publicacion likeada");
-            }else{
-                System.out.println("Ya tienes un like en esta publicacion");
-            }
-        });
-
-
-    }
-
-
-
-    public void crearPost(long usrId, String contenido){
+    public boolean crearPost(long usrId, String contenido){
 
         try {
             Post nuevo =  new Post(usrId,contenido);
             Post p = repoPost.guardarPost(nuevo);
-            if (p.getId()!=-1){
-                System.out.println("Post guardado Exitosamente");
-            }else{
-                System.out.println("Algo ocurrio "+p.getId());
-            }
 
+            return p.getId() != -1;
         }catch (Exception e){
             System.out.println("Ocurrio un error al guardar el post:\n"+ e.getMessage());
         }
+            return false;
+
 
 
     }
@@ -66,8 +52,8 @@ public class PostServicio {
         List<Post> all = repoPost.todosLosPosts();
 
         if (all.isEmpty()) {
-            System.out.println("No hay posts creados");
-            return Collections.emptyList();
+            throw new SinPostsCreados("No hay posts creados");
+
         }
 
         return all;
@@ -77,8 +63,7 @@ public class PostServicio {
 
         List<Post> usr = repoPost.buscarPostsPorUsuario(idUsr);
         if (usr.isEmpty()) {
-            System.out.println("Este usuario no tiene post creados");
-            return Collections.emptyList();
+            throw new UsuarioNoEncontrado();
         }
         return usr;
 
@@ -122,12 +107,8 @@ public class PostServicio {
     }
 
 
-    public void eliminarPost(long postId){
-        if (repoPost.borrarPosts(postId)) {
-            System.out.println("Post borrado exitosamnete");
-        }else{
-            System.out.println("la id de ese post es invalida");
-        }
+    public boolean eliminarPost(long postId){
+      return repoPost.borrarPosts(postId);
     }
 
 

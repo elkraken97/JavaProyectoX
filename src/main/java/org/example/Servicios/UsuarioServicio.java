@@ -11,10 +11,6 @@ import java.util.List;
 
 public class UsuarioServicio {
 
-
-
-
-
      private final RepositorioUsuarioInterface repoUsuario;
 
     public UsuarioServicio(RepositorioUsuarioInterface repoUsuario) {
@@ -23,7 +19,7 @@ public class UsuarioServicio {
 
     public User  agregarUsuario(String nombre){
         User usrN = new User(nombre);
-       User n = repoUsuario.guardarUsuario(usrN);
+        User n = repoUsuario.guardarUsuario(usrN);
         if (n.getId()!=-1){
           return  n;
         }
