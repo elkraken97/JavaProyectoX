@@ -94,7 +94,7 @@ public class ControlLogicaEmpaquetado {
         }
         User usr = servicioUsuarios.usuarioPorId(id);
         sesion.iniciarSesion(usr);
-        return "Has iniciado Sesion como " + usr.getNombre();
+        return "Has iniciado Sesion como " + sesion.usuarioActual().getNombre();
     }
 
    public List<String> mostrarTodosLosUsuarios(){
@@ -121,7 +121,9 @@ public class ControlLogicaEmpaquetado {
    }
     public boolean logoutSesion(){
         sesion.cerrarSesion();
-        return sesion.haySesionActiva();
+
+        return !sesion.haySesionActiva();
+
     }
 
 

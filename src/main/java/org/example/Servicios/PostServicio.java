@@ -100,7 +100,7 @@ public class PostServicio {
            return "Id del post:" + postActual.getId() + "\n" +
                    "Contenido del post:\n" + postActual.getContenido() + "\n" +
                    "Publicado el " + postActual.getCreacion() + "\n" +
-                   "Likes:" + postActual.getLikes();
+                   "Likes:" + postActual.getLikes().size();
     }
 
 

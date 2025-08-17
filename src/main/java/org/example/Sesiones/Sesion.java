@@ -10,6 +10,7 @@ public class Sesion {
 
     public void iniciarSesion(User usr){
         this.usuarioActual = usr;
+
     }
 
     public void cerrarSesion(){
