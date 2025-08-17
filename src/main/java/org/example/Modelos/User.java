@@ -18,6 +18,7 @@ public class User {
         this.seguidores = new HashSet<>();
     }
 
+    public boolean yaSeguid(long id){return seguidores.contains(id);}
 
     public long getId() {
         return id;

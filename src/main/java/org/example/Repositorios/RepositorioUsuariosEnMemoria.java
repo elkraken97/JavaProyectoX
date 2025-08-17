@@ -9,6 +9,15 @@ public class RepositorioUsuariosEnMemoria implements RepositorioUsuarioInterface
     private static long count = 1;
     private final Map<Long,User> usuarios = new HashMap<>();
 
+
+    public RepositorioUsuariosEnMemoria() {
+        // Usuarios iniciales de prueba
+        guardarUsuario(new User("Alice"));
+        guardarUsuario(new User("Bob"));
+        guardarUsuario(new User("Charlie"));
+    }
+
+
     @Override
     public User guardarUsuario(User usr) {
         if(usr.getId()==-1){

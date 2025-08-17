@@ -1,6 +1,7 @@
 package org.example.Control;
 
 import org.example.InputsManage.InputDeDatos;
+import org.example.Modelos.Post;
 import org.example.Modelos.User;
 import org.example.Sesiones.Sesion;
 
@@ -67,9 +68,10 @@ public class ControlConsolaInteractiva {
         while (logout){
             System.out.println("Bienvenido "+control.nombreDeLaSesion());
             System.out.println("""
-                    1.-Ver Feed General
-                    2.-Ver Perfil de un usuario
+                    1.- Ver Feed General
+                    2.- Ver Perfil de un usuario
                     3.- Salir sesion
+                    4.- Crear Post
                     """);
                 int op = input.recibirInteger("Ingresa la opcion deseada:");
             switch (op) {
@@ -79,15 +81,11 @@ public class ControlConsolaInteractiva {
 
 
                 }
-
-
                  case 2->{
 
                      verPerfilDeUsuario();
 
                  }
-
-
                 case 3 -> {
                     String n = control.nombreDeLaSesion();
                     if (control.logoutSesion()){
@@ -96,6 +94,11 @@ public class ControlConsolaInteractiva {
                     }else{
                         System.out.println("Ha ocurrido un problema al salir de la sesion");
                     }
+                }
+                case 4->{
+
+                    crearPosts();
+
                 }
                 default -> {
                     System.out.println("Opcion no disponible");
@@ -109,36 +112,73 @@ public class ControlConsolaInteractiva {
 
     }
 
+    private void crearPosts() {
+
+        String contenido = input.recibirString("Ingresa el contenido de tu post (no puede superar los 200 caracteres)");
+        System.out.println(control.crearPost(contenido));
+
+    }
+
+    private void verPerfilDeUsuario() {
+        int idUsr = input.recibirInteger("Ingrese la id del usuario que quiere ver");
+        System.out.println(control.mostrarInfoUsuario(idUsr));
+        List<Post> posts = control.mostrarPostsDeUnUsuario(idUsr);
+        for (Post post : posts) {
+            System.out.println(control.procesarPost(post));
+
+            if (procesarOpcionesDeFeed(post)) break;
+
+        }
+
+    }
+
+
     private void verFeedGeneral() {
 
-        List<String> feed = control.feedGeneral();
+        List<Post> feed = control.feedGeneral();
         if (feed.isEmpty()) {
             System.out.println("No hay posts que mostrar");
             return;
         }
 
-        for (String s : feed) {
+        for (Post s : feed) {
+            System.out.println(control.procesarPost(s));
             if (procesarOpcionesDeFeed(s)) break;
         }
 
     }
     
     
-    private boolean procesarOpcionesDeFeed(String posts){
-
-
-        System.out.println(posts);
-
-
-        String op = input.recibirString("-----Enter/Seguir-L/DarLike-S/SeguiralPerfil-Q/Salir").toLowerCase();
+    private boolean procesarOpcionesDeFeed(Post posts){
+        boolean perfilYaSeguido = control.usuarioYaSeguido(posts.getUsrId());
+        boolean postsYaLikeado = control.publicacionLikeada(posts);
+        String emp = "----Enter/Seguir----"+(postsYaLikeado?"L/DarLike---":"L/QuitarLike")+(perfilYaSeguido?"----S/SeguirPerfil----":"----S/DejarDeSeguir----");
+        String op = input.recibirString(emp).toLowerCase();
         switch (op) {
         //ver como dar like si no se en que posts estoy
-            case "L"->{
+            case "l"->{
+
+                if (postsYaLikeado){
+                    System.out.println(control.quitarLike(posts));
+                    return false;
+
+                }
+                System.out.println(control.darLike(posts));
+
+                return false;
+            }
+            case "s"->{
+                if (perfilYaSeguido){
+                    System.out.println(control.dejarDeSeguir(posts.getUsrId()));
+                    return false;
+                }
+                System.out.println(control.seguirAUsuario(posts.getUsrId()));
+                return false;
 
             }
-
-
-
+            case "q"->{
+                return true;
+            }
 
             default -> {
                 return false;
@@ -148,25 +188,13 @@ public class ControlConsolaInteractiva {
 
         }
 
-    return true;
 
-        
-        
     }
     
     
     
 
-    private void verPerfilDeUsuario() {
-        int idUsr = input.recibirInteger("Ingrese la id del usuario que quiere ver");
 
-        verPfp(idUsr);
-
-
-    }
-
-    private void verPfp(int idUsr) {
-    }
 
     private void crearUsuarios() {
         boolean salir = false;

@@ -72,4 +72,7 @@ public class Post {
         return likes.remove(id);
     }
 
+    public boolean publicacionLikeada(long id){return likes.contains(id);}
+
+
 }

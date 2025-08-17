@@ -45,6 +45,19 @@ public class UsuarioServicio {
 
     }
 
+    public boolean usuarioYaSeguido(long usuarioActual, long idUsuariodelPosts){
+
+
+
+        User actual = repoUsuario.buscarUsuarioPorID(usuarioActual).orElseThrow(UsuarioNoEncontrado::new);
+
+       return  actual.yaSeguid(idUsuariodelPosts);
+
+
+
+    }
+
+
     public boolean dejarDeSeguirAUsuario(long usuarioActual, long idUsuarioADejarDeSeguir){
 
         User actual = repoUsuario.buscarUsuarioPorID(usuarioActual).orElseThrow(UsuarioNoEncontrado::new);
@@ -76,6 +89,9 @@ public class UsuarioServicio {
     public User usuarioPorId(long id){
          return repoUsuario.buscarUsuarioPorID(id).orElseThrow(UsuarioNoEncontrado::new);
     }
+
+
+
 
     public User usuarioPorNombre(String name){
         return repoUsuario.buscarUsuarioPorNombre(name).orElseThrow(UsuarioNoEncontrado::new);

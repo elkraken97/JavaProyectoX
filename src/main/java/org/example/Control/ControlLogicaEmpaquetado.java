@@ -1,6 +1,7 @@
 package org.example.Control;
 
 
+
 import org.example.Modelos.Post;
 import org.example.Modelos.User;
 import org.example.Servicios.PostServicio;
@@ -8,6 +9,7 @@ import org.example.Servicios.UsuarioServicio;
 import org.example.Sesiones.Sesion;
 
 
+import java.util.Collections;
 import java.util.List;
 
 public class ControlLogicaEmpaquetado {
@@ -25,14 +27,57 @@ public class ControlLogicaEmpaquetado {
 
 
 
-    public List<String> feedGeneral(){
+    public List<Post> feedGeneral(){
 
 
-      return servicioPosts.todosLosPost().stream().map(servicioPosts::procesarPost).toList();
+      return servicioPosts.todosLosPost();
 
 
     }
 
+    public boolean usuarioYaSeguido(long idUsr){
+
+
+        return servicioUsuarios.usuarioYaSeguido(sesion.usuarioActual().getId(),idUsr);
+    }
+
+    public String seguirAUsuario(long idUser){
+        User usr = servicioUsuarios.usuarioPorId(idUser);
+        if (servicioUsuarios.seguirAUsuario(sesion.usuarioActual().getId(),usr.getId())) {
+            return "Has seguido a "+usr.getNombre();
+        }
+        return "Ha ocurrido un error al seguir a "+usr.getNombre();
+
+    }
+
+
+    public String dejarDeSeguir(long idUser){
+        User usr = servicioUsuarios.usuarioPorId(idUser);
+
+        if (servicioUsuarios.dejarDeSeguirAUsuario(sesion.usuarioActual().getId(),idUser)){
+            return "Has dejado de seguir a "+usr.getNombre();
+        }
+        return "Ha ocurrido un problema al dejar de seguir a "+usr.getNombre();
+
+    }
+
+    public String procesarPost(Post ps){
+        return servicioPosts.procesarPost(ps);
+    }
+
+    public String darLike(Post post){
+        if (servicioPosts.darLike(sesion.usuarioActual().getId(),post.getId())) {
+            return "Has likeado esta publicacion";
+        }
+        return "Ha ocurrido un problema al dar like";
+    }
+
+    public String quitarLike(Post post){
+        if (servicioPosts.quitarLike(sesion.usuarioActual().getId(),post.getId())){
+            return "Has quitado el like de esta publicacion";
+        }
+        return "Ha ocurrido un problema al dar like a esta publicacion ";
+    }
 
 
     public boolean haySesionActiva(){
@@ -57,7 +102,23 @@ public class ControlLogicaEmpaquetado {
        return servicioUsuarios.todosLosUsuarios().stream().map(servicioUsuarios::procesarUsuario).toList();
 
    }
+   public List<Post> mostrarPostsDeUnUsuario(long id){
 
+        return  servicioPosts.postPorUsuario(id);
+
+   }
+
+   public String crearPost(String contenido){
+       if (servicioPosts.crearPost(sesion.usuarioActual().getId(),contenido)) {
+           return "Post creado";
+       }
+       return "Ocurrio un problema al procesar el post";
+   }
+
+
+   public String mostrarInfoUsuario(long id){
+        return  servicioUsuarios.procesarUsuario(servicioUsuarios.usuarioPorId(id));
+   }
     public boolean logoutSesion(){
         sesion.cerrarSesion();
         return sesion.haySesionActiva();
@@ -81,6 +142,10 @@ public class ControlLogicaEmpaquetado {
     }
 
 
+    public boolean publicacionLikeada(Post posts) {
+
+        return posts.publicacionLikeada(sesion.usuarioActual().getId());
 
 
+    }
 }

@@ -43,10 +43,7 @@ public class PostServicio {
         }
             return false;
 
-
-
     }
-
 
     public List<Post> todosLosPost(){
         List<Post> all = repoPost.todosLosPosts();
@@ -59,11 +56,11 @@ public class PostServicio {
         return all;
     }
 
-    public List<Post> postPorUsuario(int idUsr){
+    public List<Post> postPorUsuario(long idUsr){
 
         List<Post> usr = repoPost.buscarPostsPorUsuario(idUsr);
         if (usr.isEmpty()) {
-            throw new UsuarioNoEncontrado();
+            throw new SinPostsCreados("Este usuario no tiene posts");
         }
         return usr;
 
