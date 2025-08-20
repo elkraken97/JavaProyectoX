@@ -26,6 +26,17 @@ public class Post {
         this.likes = new HashSet<>();
 
     }
+    public Post(long usrId, String contenido,LocalDateTime hora) throws DemasiadosCaracteres {
+
+        if (contenido.length()>200){
+            throw new DemasiadosCaracteres("El contenido del post debe tener menos de 200 caracteres");
+        } this.id = -1 ;
+        this.usrId = usrId;
+        this.contenido = contenido;
+        this.creacion = hora;
+        this.likes = new HashSet<>();
+
+    }
 
 
     public long getId() {

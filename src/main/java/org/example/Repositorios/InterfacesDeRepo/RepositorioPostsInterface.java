@@ -2,12 +2,13 @@ package org.example.Repositorios.InterfacesDeRepo;
 
 import org.example.Modelos.Post;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public interface RepositorioPostsInterface {
 
-    public Post guardarPost(Post post);
+    public Post guardarPost(Post post) throws SQLException;
 
     public Optional<Post> buscarPostsPorID(long id);
 
