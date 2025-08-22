@@ -8,4 +8,6 @@ public interface RepositorioLikesInterfaces {
     int contarLikes(long postId);
     List<Long> obtenerUsuariosQueDieronLike(long postId);
     boolean usuarioDioLike(long postId, long userId);
+
+    boolean postCreado(long userId);
 }

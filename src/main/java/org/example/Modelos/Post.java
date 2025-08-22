@@ -12,7 +12,7 @@ public class Post {
     private long usrId;
     private String contenido;
     private LocalDateTime creacion;
-    private Set<Long> likes;
+    private final Set<Long> likes;
 
 
     public Post(long usrId, String contenido) throws DemasiadosCaracteres {
@@ -26,7 +26,7 @@ public class Post {
         this.likes = new HashSet<>();
 
     }
-    public Post(long usrId, String contenido,LocalDateTime hora) throws DemasiadosCaracteres {
+    public Post(long usrId, String contenido,LocalDateTime hora,HashSet<Long> likes) throws DemasiadosCaracteres {
 
         if (contenido.length()>200){
             throw new DemasiadosCaracteres("El contenido del post debe tener menos de 200 caracteres");
@@ -34,7 +34,7 @@ public class Post {
         this.usrId = usrId;
         this.contenido = contenido;
         this.creacion = hora;
-        this.likes = new HashSet<>();
+        this.likes = likes;
 
     }
 
@@ -71,19 +71,11 @@ public class Post {
         this.creacion = creacion;
     }
 
-    public Set<Long> getLikes() {
-        return likes;
-    }
 
-    public boolean likear(long id) {
-        return likes.add(id);
-    }
 
-    public boolean unlike(long id){
-        return likes.remove(id);
-    }
 
-    public boolean publicacionLikeada(long id){return likes.contains(id);}
+
+
 
 
 }

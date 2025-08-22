@@ -4,6 +4,7 @@ package org.example.Control;
 
 import org.example.Modelos.Post;
 import org.example.Modelos.User;
+import org.example.Servicios.LikesServicio;
 import org.example.Servicios.PostServicio;
 import org.example.Servicios.UsuarioServicio;
 import org.example.Sesiones.Sesion;
@@ -17,12 +18,13 @@ public class ControlLogicaEmpaquetado {
     private final PostServicio servicioPosts;
     private final UsuarioServicio servicioUsuarios;
     private final Sesion sesion;
+    private final LikesServicio servicioLikes;
 
-
-    public ControlLogicaEmpaquetado(PostServicio servicioPosts, UsuarioServicio servicioUsuarios, Sesion sesion) {
+    public ControlLogicaEmpaquetado(PostServicio servicioPosts, UsuarioServicio servicioUsuarios, Sesion sesion, LikesServicio servicioLikes) {
         this.servicioPosts = servicioPosts;
         this.servicioUsuarios = servicioUsuarios;
         this.sesion = sesion;
+        this.servicioLikes = servicioLikes;
     }
 
 
@@ -62,21 +64,16 @@ public class ControlLogicaEmpaquetado {
     }
 
     public String procesarPost(Post ps){
-        return servicioPosts.procesarPost(ps);
+        return servicioPosts.procesarPost(ps)+"Likes: "+servicioLikes.contarLikes(ps.getId());
     }
 
     public String darLike(Post post){
-        if (servicioPosts.darLike(sesion.usuarioActual().getId(),post.getId())) {
-            return "Has likeado esta publicacion";
-        }
-        return "Ha ocurrido un problema al dar like";
+
+        return servicioLikes.darLike(sesion.usuarioActual().getId(),post.getId())?"Has dado like a la publicacion":"Ya habias dado like a esta publicacion";
     }
 
     public String quitarLike(Post post){
-        if (servicioPosts.quitarLike(sesion.usuarioActual().getId(),post.getId())){
-            return "Has quitado el like de esta publicacion";
-        }
-        return "Ha ocurrido un problema al dar like a esta publicacion ";
+        return servicioLikes.quitarLike(sesion.usuarioActual().getId(),post.getId())?"Has quitado el like a la publicacion":"No habias dado like a esta publicacion";
     }
 
 
@@ -109,7 +106,8 @@ public class ControlLogicaEmpaquetado {
    }
 
    public String crearPost(String contenido){
-       if (servicioPosts.crearPost(sesion.usuarioActual().getId(),contenido)) {
+        Post p = servicioPosts.crearPost(sesion.usuarioActual().getId(),contenido);
+       if (p != null && servicioLikes.crearPost(p.getId())) {
            return "Post creado";
        }
        return "Ocurrio un problema al procesar el post";
@@ -142,11 +140,11 @@ public class ControlLogicaEmpaquetado {
         return servicioUsuarios.procesarUsuario(usr);
 
     }
-
+        //Aqui ver de la publicacion likeada
 
     public boolean publicacionLikeada(Post posts) {
 
-        return posts.publicacionLikeada(sesion.usuarioActual().getId());
+       return servicioLikes.usuarioDioLike(posts.getId(),sesion.usuarioActual().getId());
 
 
     }

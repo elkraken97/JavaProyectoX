@@ -1,5 +1,6 @@
 package org.example.Servicios;
 
+import org.example.Excepciones.ErrorAlGuardarDato;
 import org.example.Excepciones.PostNoEncontrado;
 import org.example.Excepciones.SinPostsCreados;
 import org.example.Excepciones.UsuarioNoEncontrado;
@@ -11,37 +12,25 @@ import java.util.List;
 import java.util.Random;
 
 public class PostServicio {
+
     private final RepositorioPostsInterface repoPost;
 
     public PostServicio(RepositorioPostsInterface repoo){
        this.repoPost=repoo;
     }
 
-    public boolean quitarLike(long idUsuario,long idPost) {
-
-       Post post = repoPost.buscarPostsPorID(idPost).orElseThrow(()->new PostNoEncontrado("Post no encontrado"));
-        return  post.unlike(idUsuario);
-
-    }
-
-    public boolean darLike(long idUsuario,long idPost){
-    Post post = repoPost.buscarPostsPorID(idPost).orElseThrow(()->new PostNoEncontrado("Post no encontrado"));
-    return post.likear(idUsuario);
-    }
 
 
 
-    public boolean crearPost(long usrId, String contenido){
+
+    public Post crearPost(long usrId, String contenido){
 
         try {
-            Post nuevo =  new Post(usrId,contenido);
-            Post p = repoPost.guardarPost(nuevo);
-
-            return p.getId() != -1;
+            return repoPost.guardarPost(new Post(usrId,contenido));
         }catch (Exception e){
-            System.out.println("Ocurrio un error al guardar el post:\n"+ e.getMessage());
+            throw new ErrorAlGuardarDato("Error creando post");
         }
-            return false;
+
 
     }
 
@@ -99,8 +88,8 @@ public class PostServicio {
 //        // "--------------//Presiona Enter para el siguiente post//---------------"
            return "Id del post:" + postActual.getId() + "\n" +
                    "Contenido del post:\n" + postActual.getContenido() + "\n" +
-                   "Publicado el " + postActual.getCreacion() + "\n" +
-                   "Likes:" + postActual.getLikes().size();
+                   "Publicado el " + postActual.getCreacion() + "\n" ;
+           //ver como agregar likes aqui--!!!
     }
 
 

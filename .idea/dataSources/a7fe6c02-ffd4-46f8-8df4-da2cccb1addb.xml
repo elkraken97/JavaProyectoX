@@ -3,15 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>dmy</DateStyle>
-      <Grants>1||-9223372036854775808|c|G
-1||10|c|G
-1||10|C|G
-1||10|T|G
-4||-9223372036854775808|c|G
-4||10|c|G
-4||10|C|G
-4||10|T|G</Grants>
-      <IntrospectionStateNumber>828</IntrospectionStateNumber>
+      <IntrospectionStateNumber>830</IntrospectionStateNumber>
       <ServerVersion>17.2</ServerVersion>
       <StartupTime>1755407374</StartupTime>
       <TimeZones>true ACDT
@@ -808,7 +800,7 @@ false Zulu
 14704||10|C|G
 14704||-9223372036854775808|U|G
 14704||10|U|G</Grants>
-      <IntrospectionStateNumber>828</IntrospectionStateNumber>
+      <IntrospectionStateNumber>830</IntrospectionStateNumber>
       <ObjectId>40960</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -4253,11 +4245,11 @@ false Zulu
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <LastIntrospectionL1Xid>828</LastIntrospectionL1Xid>
-      <LastIntrospectionL2Xid>828</LastIntrospectionL2Xid>
-      <LastIntrospectionL3Xid>828</LastIntrospectionL3Xid>
+      <LastIntrospectionL1Xid>830</LastIntrospectionL1Xid>
+      <LastIntrospectionL2Xid>830</LastIntrospectionL2Xid>
+      <LastIntrospectionL3Xid>830</LastIntrospectionL3Xid>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2025-08-20.03:38:29</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-08-21.04:43:25</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>532</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
