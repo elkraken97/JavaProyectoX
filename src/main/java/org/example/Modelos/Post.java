@@ -3,16 +3,15 @@ package org.example.Modelos;
 import org.example.Excepciones.DemasiadosCaracteres;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+
 
 public class Post {
 
     private long id;
-    private long usrId;
-    private String contenido;
-    private LocalDateTime creacion;
-    private final Set<Long> likes;
+    private final long usrId;
+    private final String contenido;
+    private final LocalDateTime creacion;
+
 
 
     public Post(long usrId, String contenido) throws DemasiadosCaracteres {
@@ -23,18 +22,7 @@ public class Post {
         this.usrId = usrId;
         this.contenido = contenido;
         this.creacion = LocalDateTime.now();
-        this.likes = new HashSet<>();
 
-    }
-    public Post(long usrId, String contenido,LocalDateTime hora,HashSet<Long> likes) throws DemasiadosCaracteres {
-
-        if (contenido.length()>200){
-            throw new DemasiadosCaracteres("El contenido del post debe tener menos de 200 caracteres");
-        } this.id = -1 ;
-        this.usrId = usrId;
-        this.contenido = contenido;
-        this.creacion = hora;
-        this.likes = likes;
 
     }
 
@@ -51,30 +39,14 @@ public class Post {
         return usrId;
     }
 
-    public void setUsrId(long usrId) {
-        this.usrId = usrId;
-    }
-
     public String getContenido() {
         return contenido;
     }
 
-    public void setContenido(String contenido) {
-        this.contenido = contenido;
-    }
 
     public LocalDateTime getCreacion() {
         return creacion;
     }
-
-    public void setCreacion(LocalDateTime creacion) {
-        this.creacion = creacion;
-    }
-
-
-
-
-
 
 
 

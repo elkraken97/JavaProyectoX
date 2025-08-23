@@ -6,9 +6,9 @@ import java.util.Set;
 public class User {
 
     private long id;
-    private String nombre;
-    private Set<Long> seguidores;
-    private Set<Long> siguiendo;
+    private final String nombre;
+    private final Set<Long> seguidores;
+    private final Set<Long> siguiendo;
 
 
     public User(String nombre) {
@@ -32,9 +32,6 @@ public class User {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public Set<Long> getSeguidores() {
         return seguidores;
@@ -56,15 +53,5 @@ public class User {
         return  seguidores.remove(usrID);
     }
 
-    public void setSeguidores(Set<Long> seguidores) {
-        this.seguidores = seguidores;
-    }
 
-    public Set<Long> getSiguiendo() {
-        return siguiendo;
-    }
-
-    public void setSiguiendo(Set<Long> siguiendo) {
-        this.siguiendo = siguiendo;
-    }
 }

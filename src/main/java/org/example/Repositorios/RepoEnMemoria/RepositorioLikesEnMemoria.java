@@ -1,4 +1,4 @@
-package org.example.Repositorios;
+package org.example.Repositorios.RepoEnMemoria;
 
 import org.example.Repositorios.InterfacesDeRepo.RepositorioLikesInterfaces;
 
@@ -44,13 +44,6 @@ public class RepositorioLikesEnMemoria implements RepositorioLikesInterfaces {
         return  likesPorPost.get(postId).size();
     }
 
-    @Override
-    public List<Long> obtenerUsuariosQueDieronLike(long postId) {
-        if (likesPorPost.containsKey(postId)) {
-            return likesPorPost.get(postId).stream().toList();
-        }
-        return Collections.emptyList();
-    }
 
     @Override
     public boolean usuarioDioLike(long postId, long userId) {

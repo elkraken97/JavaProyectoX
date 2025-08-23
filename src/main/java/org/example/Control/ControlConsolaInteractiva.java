@@ -5,72 +5,51 @@ import org.example.Modelos.Post;
 
 import java.util.List;
 
-public class ControlConsolaInteractiva {
+public record ControlConsolaInteractiva(ControlLogicaEmpaquetado control, InputDeDatos input) {
 
 
+    public void menuPrincipal() {
 
-
-        private final ControlLogicaEmpaquetado control;
-        private final InputDeDatos input;
-
-
-        public ControlConsolaInteractiva(ControlLogicaEmpaquetado control, InputDeDatos input) {
-            this.control = control;
-            this.input = input;
-        }
-
-
-        public void menuPrincipal(){
-
-            boolean salir = false;
-            while (!salir) {
-                try{
+        boolean salir = false;
+        while (!salir) {
+            try {
                 System.out.println("""
-                    Bienvenido a la red social K97
-                    ¿Que deseas hacer?
-                    1.-Iniciar Sesion (interaccion / posts unicos / creacion de posts)
-                    2.-Ver Posts (General)
-                    3.-Ver Usuarios (General)
-                    4.-Crear Usuarios
-                    5.-Salir
-                    """);
+                        Bienvenido a la red social K97
+                        ¿Que deseas hacer?
+                        1.-Iniciar Sesion (interaccion / posts unicos / creacion de posts)
+                        2.-Ver Posts (General)
+                        3.-Ver Usuarios (General)
+                        4.-Crear Usuarios
+                        5.-Salir
+                        """);
                 int op = input.recibirInteger("Ingresa tu opcion:");
-                switch (op){
-                    case 1->{
+                switch (op) {
+                    case 1 -> {
                         iniciarSesion();
-                        if (control.haySesionActiva()){
+                        if (control.haySesionActiva()) {
                             menuSesion();
                         }
                     }
-                    case 2->{
-                        procesarListaSimple(control.mostrarTodosLosPostsSimple());
-                    }
-                    case 3->{
-                        procesarListaSimple(control.mostrarTodosLosUsuarios());
-                    }
-                    case 4->{
-                        crearUsuarios();
-                    }
-                    case 5->{
+                    case 2 -> procesarListaSimple(control.mostrarTodosLosPostsSimple());
+                    case 3 -> procesarListaSimple(control.mostrarTodosLosUsuarios());
+                    case 4 -> crearUsuarios();
+                    case 5 -> {
                         System.out.println("Hasta luego...");
                         salir = true;
                     }
-                    default -> {
-                        System.out.println("Opcion No disponible");
-                    }
+                    default -> System.out.println("Opcion No disponible");
                 }
 
-            }
-                catch (Exception e){
-                    System.out.println("Error:"+e.getMessage()+e.getLocalizedMessage());
-                }
-
+            } catch (Exception e) {
+                System.out.println("Error:" + e.getMessage() + e.getLocalizedMessage());
             }
 
         }
 
+    }
+
     private void iniciarSesion() {
-        List<String> usrs =  control.mostrarTodosLosUsuarios();
+        List<String> usrs = control.mostrarTodosLosUsuarios();
         if (usrs.isEmpty()) {
             System.out.println("No hay usuarios registrados");
             return;
@@ -80,34 +59,26 @@ public class ControlConsolaInteractiva {
         System.out.println(control.iniciarSesion(id));
     }
 
-        private void menuSesion() {
+    private void menuSesion() {
 
-            boolean logout = true;
-            String nombreDeLaSeson = control.nombreDeLaSesion();
-            while (logout) {
-                try{
+        boolean logout = true;
+        String nombreDeLaSeson = control.nombreDeLaSesion();
+        while (logout) {
+            try {
 
-                    System.out.println("Bienvenido " + nombreDeLaSeson);
+                System.out.println("Bienvenido " + nombreDeLaSeson);
 
                 System.out.println("""
-                       1.- Ver Feed General
-                       2.- Ver Perfil de un usuario
-                       3.- Salir sesion
-                       4.- Crear Post
-                       """);
+                        1.- Ver Feed General
+                        2.- Ver Perfil de un usuario
+                        3.- Salir sesion
+                        4.- Crear Post
+                        """);
                 int op = input.recibirInteger("Ingresa la opcion deseada:");
                 switch (op) {
 
-                    case 1 -> {
-                        verFeedGeneral();
-
-
-                    }
-                    case 2 -> {
-
-                        verPerfilDeUsuario();
-
-                    }
+                    case 1 -> verFeedGeneral();
+                    case 2 -> verPerfilDeUsuario();
                     case 3 -> {
 
 
@@ -119,23 +90,16 @@ public class ControlConsolaInteractiva {
                             System.out.println("Ha ocurrido un problema al salir de la sesion");
                         }
                     }
-                    case 4 -> {
-
-                        crearPosts();
-
-                    }
-                    default -> {
-                        System.out.println("Opcion no disponible");
-                    }
+                    case 4 -> crearPosts();
+                    default -> System.out.println("Opcion no disponible");
 
                 }
 
-                }catch (Exception e){
-                    System.out.println("Error:"+e.getMessage()+e.getLocalizedMessage());
-                }
+            } catch (Exception e) {
+                System.out.println("Error:" + e.getMessage() + e.getLocalizedMessage());
             }
         }
-
+    }
 
 
     private void crearPosts() {
@@ -175,16 +139,16 @@ public class ControlConsolaInteractiva {
     }
 
 
-    private boolean procesarOpcionesDeFeed(Post posts){
+    private boolean procesarOpcionesDeFeed(Post posts) {
         boolean perfilYaSeguido = control.usuarioYaSeguido(posts.getUsrId());
         boolean postsYaLikeado = control.publicacionLikeada(posts);
-        String emp = "----Enter/Seguir----"+(!postsYaLikeado?"L/DarLike---":"L/QuitarLike")+(!perfilYaSeguido?"----S/SeguirPerfil----":"----S/DejarDeSeguir----");
+        String emp = "----Enter/Seguir----" + (!postsYaLikeado ? "L/DarLike---" : "L/QuitarLike") + (!perfilYaSeguido ? "----S/SeguirPerfil----" : "----S/DejarDeSeguir----");
         String op = input.recibirString(emp).toLowerCase();
         switch (op) {
             //ver como dar like si no se en que posts estoy
-            case "l"->{
+            case "l" -> {
 
-                if (postsYaLikeado){
+                if (postsYaLikeado) {
                     System.out.println(control.quitarLike(posts));
                     return false;
 
@@ -193,8 +157,8 @@ public class ControlConsolaInteractiva {
 
                 return false;
             }
-            case "s"->{
-                if (perfilYaSeguido){
+            case "s" -> {
+                if (perfilYaSeguido) {
                     System.out.println(control.dejarDeSeguir(posts.getUsrId()));
                     return false;
                 }
@@ -202,14 +166,13 @@ public class ControlConsolaInteractiva {
                 return false;
 
             }
-            case "q"->{
+            case "q" -> {
                 return true;
             }
 
             default -> {
                 return false;
             }
-
 
 
         }
@@ -220,20 +183,17 @@ public class ControlConsolaInteractiva {
 
     private void crearUsuarios() {
         boolean salir = false;
-        while (!salir){
+        while (!salir) {
             System.out.println("1.-Nuevo Usuario");
             System.out.println("2.- Salir");
             int op = input.recibirInteger("Ingrese la opcion:");
             switch (op) {
-                case 1->{
+                case 1 -> {
                     String nombre = input.recibirString("Ingrese el nombre del usuario");
                     System.out.println(control.crearUsuario(nombre));
                 }
-                case 2->{
-                    salir = true;
-                }default -> {
-                    System.out.println("No hay esa opcion");
-                }
+                case 2 -> salir = true;
+                default -> System.out.println("No hay esa opcion");
             }
 
 
@@ -254,8 +214,8 @@ public class ControlConsolaInteractiva {
 //    }
 
 
-    private void procesarListaSimple(List<String> lista){
-        if (lista.isEmpty()){
+    private void procesarListaSimple(List<String> lista) {
+        if (lista.isEmpty()) {
             System.out.println("No hay recursos");
             return;
         }
@@ -276,7 +236,6 @@ public class ControlConsolaInteractiva {
 //
 //        }
 //    }
-
 
 
 }

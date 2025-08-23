@@ -1,4 +1,4 @@
-package org.example.Repositorios;
+package org.example.Repositorios.RepoEnMemoria;
 
 import org.example.Modelos.Post;
 import org.example.Repositorios.InterfacesDeRepo.RepositorioPostsInterface;
