@@ -822,59 +822,55 @@ false Zulu
       <ObjectId>5</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
-    <role id="7" parent="1" name="blog">
-      <CanLogin>1</CanLogin>
-      <ObjectId>16389</ObjectId>
-    </role>
-    <role id="8" parent="1" name="pg_checkpoint">
-      <ObjectId>4544</ObjectId>
-    </role>
-    <role id="9" parent="1" name="pg_create_subscription">
-      <ObjectId>6304</ObjectId>
-    </role>
-    <role id="10" parent="1" name="pg_database_owner">
+    <role id="7" parent="1" name="pg_database_owner">
       <ObjectId>6171</ObjectId>
     </role>
-    <role id="11" parent="1" name="pg_execute_server_program">
-      <ObjectId>4571</ObjectId>
+    <role id="8" parent="1" name="pg_read_all_data">
+      <ObjectId>6181</ObjectId>
     </role>
-    <role id="12" parent="1" name="pg_maintain">
-      <ObjectId>6337</ObjectId>
+    <role id="9" parent="1" name="pg_write_all_data">
+      <ObjectId>6182</ObjectId>
     </role>
-    <role id="13" parent="1" name="pg_monitor">
+    <role id="10" parent="1" name="pg_monitor">
       <ObjectId>3373</ObjectId>
       <RoleGrants>3374
 3375
 3377</RoleGrants>
     </role>
-    <role id="14" parent="1" name="pg_read_all_data">
-      <ObjectId>6181</ObjectId>
-    </role>
-    <role id="15" parent="1" name="pg_read_all_settings">
+    <role id="11" parent="1" name="pg_read_all_settings">
       <ObjectId>3374</ObjectId>
     </role>
-    <role id="16" parent="1" name="pg_read_all_stats">
+    <role id="12" parent="1" name="pg_read_all_stats">
       <ObjectId>3375</ObjectId>
     </role>
-    <role id="17" parent="1" name="pg_read_server_files">
+    <role id="13" parent="1" name="pg_stat_scan_tables">
+      <ObjectId>3377</ObjectId>
+    </role>
+    <role id="14" parent="1" name="pg_read_server_files">
       <ObjectId>4569</ObjectId>
     </role>
-    <role id="18" parent="1" name="pg_signal_backend">
+    <role id="15" parent="1" name="pg_write_server_files">
+      <ObjectId>4570</ObjectId>
+    </role>
+    <role id="16" parent="1" name="pg_execute_server_program">
+      <ObjectId>4571</ObjectId>
+    </role>
+    <role id="17" parent="1" name="pg_signal_backend">
       <ObjectId>4200</ObjectId>
     </role>
-    <role id="19" parent="1" name="pg_stat_scan_tables">
-      <ObjectId>3377</ObjectId>
+    <role id="18" parent="1" name="pg_checkpoint">
+      <ObjectId>4544</ObjectId>
+    </role>
+    <role id="19" parent="1" name="pg_maintain">
+      <ObjectId>6337</ObjectId>
     </role>
     <role id="20" parent="1" name="pg_use_reserved_connections">
       <ObjectId>4550</ObjectId>
     </role>
-    <role id="21" parent="1" name="pg_write_all_data">
-      <ObjectId>6182</ObjectId>
+    <role id="21" parent="1" name="pg_create_subscription">
+      <ObjectId>6304</ObjectId>
     </role>
-    <role id="22" parent="1" name="pg_write_server_files">
-      <ObjectId>4570</ObjectId>
-    </role>
-    <role id="23" parent="1" name="postgres">
+    <role id="22" parent="1" name="postgres">
       <BypassRls>1</BypassRls>
       <CanLogin>1</CanLogin>
       <CreateDb>1</CreateDb>
@@ -882,6 +878,10 @@ false Zulu
       <ObjectId>10</ObjectId>
       <Replication>1</Replication>
       <SuperRole>1</SuperRole>
+    </role>
+    <role id="23" parent="1" name="blog">
+      <CanLogin>1</CanLogin>
+      <ObjectId>16389</ObjectId>
     </role>
     <tablespace id="24" parent="1" name="pg_default">
       <ObjectId>1663</ObjectId>
@@ -4254,7 +4254,25 @@ false Zulu
       <StateNumber>532</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
     </schema>
-    <sequence id="270" parent="269" name="posts_id_seq">
+    <schema id="270" parent="4" name="information_schema">
+      <ObjectId>14704</ObjectId>
+      <StateNumber>538</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </schema>
+    <schema id="271" parent="4" name="pg_catalog">
+      <Comment>system catalog schema</Comment>
+      <ObjectId>11</ObjectId>
+      <StateNumber>532</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </schema>
+    <schema id="272" parent="4" name="public">
+      <Comment>standard public schema</Comment>
+      <Current>1</Current>
+      <ObjectId>2200</ObjectId>
+      <StateNumber>532</StateNumber>
+      <OwnerName>pg_database_owner</OwnerName>
+    </schema>
+    <sequence id="273" parent="269" name="posts_id_seq">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>49161</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
@@ -4263,7 +4281,7 @@ false Zulu
       <StoredType>bigint|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <sequence id="271" parent="269" name="users_id_seq">
+    <sequence id="274" parent="269" name="users_id_seq">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>49152</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
@@ -4272,42 +4290,42 @@ false Zulu
       <StoredType>bigint|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <table id="272" parent="269" name="likes">
+    <table id="275" parent="269" name="likes">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>49174</ObjectId>
       <StateNumber>831</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="273" parent="269" name="posts">
+    <table id="276" parent="269" name="posts">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>49162</ObjectId>
       <StateNumber>822</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="274" parent="269" name="users">
+    <table id="277" parent="269" name="users">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>49153</ObjectId>
       <StateNumber>822</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <column id="275" parent="272" name="post_id">
+    <column id="278" parent="275" name="post_id">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>831</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="276" parent="272" name="user_id">
+    <column id="279" parent="275" name="user_id">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>831</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="277" parent="272" name="likes_post_id_fkey">
+    <foreign-key id="280" parent="275" name="likes_post_id_fkey">
       <ColNames>post_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>49179</ObjectId>
@@ -4316,7 +4334,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>49162</RefTableId>
     </foreign-key>
-    <foreign-key id="278" parent="272" name="likes_user_id_fkey">
+    <foreign-key id="281" parent="275" name="likes_user_id_fkey">
       <ColNames>user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>49184</ObjectId>
@@ -4325,7 +4343,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>49153</RefTableId>
     </foreign-key>
-    <index id="279" parent="272" name="likes_pkey">
+    <index id="282" parent="275" name="likes_pkey">
       <ColNames>post_id
 user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
@@ -4335,14 +4353,14 @@ user_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="280" parent="272" name="likes_pkey">
+    <key id="283" parent="275" name="likes_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>49178</ObjectId>
       <Primary>1</Primary>
       <StateNumber>831</StateNumber>
       <UnderlyingIndexId>49177</UnderlyingIndexId>
     </key>
-    <column id="281" parent="273" name="id">
+    <column id="284" parent="276" name="id">
       <DefaultExpression>nextval(&apos;posts_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4351,28 +4369,28 @@ user_id</ColNames>
       <SequenceId>49161</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="282" parent="273" name="usr_id">
+    <column id="285" parent="276" name="usr_id">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>822</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="283" parent="273" name="contenido">
+    <column id="286" parent="276" name="contenido">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>822</StateNumber>
       <StoredType>varchar(200)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="284" parent="273" name="creacion">
+    <column id="287" parent="276" name="creacion">
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>4</Position>
       <StateNumber>822</StateNumber>
       <StoredType>timestamp|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <foreign-key id="285" parent="273" name="posts_usr_id_fkey">
+    <foreign-key id="288" parent="276" name="posts_usr_id_fkey">
       <ColNames>usr_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>49169</ObjectId>
@@ -4381,7 +4399,7 @@ user_id</ColNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>49153</RefTableId>
     </foreign-key>
-    <index id="286" parent="273" name="posts_pkey">
+    <index id="289" parent="276" name="posts_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>49167</ObjectId>
@@ -4390,14 +4408,14 @@ user_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="287" parent="273" name="posts_pkey">
+    <key id="290" parent="276" name="posts_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>49168</ObjectId>
       <Primary>1</Primary>
       <StateNumber>822</StateNumber>
       <UnderlyingIndexId>49167</UnderlyingIndexId>
     </key>
-    <column id="288" parent="274" name="id">
+    <column id="291" parent="277" name="id">
       <DefaultExpression>nextval(&apos;users_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4406,14 +4424,14 @@ user_id</ColNames>
       <SequenceId>49152</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="289" parent="274" name="nombre">
+    <column id="292" parent="277" name="nombre">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>821</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <index id="290" parent="274" name="users_pkey">
+    <index id="293" parent="277" name="users_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>49157</ObjectId>
@@ -4422,7 +4440,7 @@ user_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="291" parent="274" name="users_nombre_key">
+    <index id="294" parent="277" name="users_nombre_key">
       <ColNames>nombre</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>49159</ObjectId>
@@ -4433,14 +4451,14 @@ user_id</ColNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="292" parent="274" name="users_pkey">
+    <key id="295" parent="277" name="users_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>49158</ObjectId>
       <Primary>1</Primary>
       <StateNumber>821</StateNumber>
       <UnderlyingIndexId>49157</UnderlyingIndexId>
     </key>
-    <key id="293" parent="274" name="users_nombre_key">
+    <key id="296" parent="277" name="users_nombre_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>49160</ObjectId>
       <StateNumber>821</StateNumber>
