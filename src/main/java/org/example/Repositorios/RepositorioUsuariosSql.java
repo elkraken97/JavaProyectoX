@@ -1,9 +1,12 @@
 package org.example.Repositorios;
 
+
 import org.example.Modelos.User;
+
 import org.example.Repositorios.InterfacesDeRepo.RepositorioUsuarioInterface;
 
-import javax.xml.transform.Result;
+import javax.sql.DataSource;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,23 +15,19 @@ import java.util.Optional;
 
 public class RepositorioUsuariosSql implements RepositorioUsuarioInterface {
 
-    private final Connection connection;
+    private final DataSource ds;
 
-    public RepositorioUsuariosSql(Connection connection) throws SQLException {
-        String usuario = "postgres";
-        String conn = "jdbc:postgresql://localhost:5432/Aplicacion46";
-        String passwd = "pwd";
-        this.connection = DriverManager.getConnection(conn, usuario, passwd);
+    public RepositorioUsuariosSql(DataSource ds) {
+
+        this.ds = ds;
     }
-
 
 
     @Override
     public User guardarUsuario(User usr) {
-        try{
         String sql = "insert into users(nombre) values (?)";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        try(Connection cn = ds.getConnection()){
+            PreparedStatement preparedStatement =  cn.prepareStatement(sql);
         preparedStatement.setString(1, usr.getNombre());
         preparedStatement.execute();
         return usr;
@@ -45,8 +44,8 @@ public class RepositorioUsuariosSql implements RepositorioUsuarioInterface {
     public Optional<User> buscarUsuarioPorID(long id) {
         String sql = "select * from users where id = (?)";
 
-        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-
+        try(Connection cn = ds.getConnection()){
+            PreparedStatement preparedStatement = cn.prepareStatement(sql);
             preparedStatement.setLong(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
 
@@ -71,8 +70,8 @@ public class RepositorioUsuariosSql implements RepositorioUsuarioInterface {
     public Optional<User> buscarUsuarioPorNombre(String nombre) {
         String sql = "select * from users where nombre = (?)  LIMIT 1";
 
-        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-
+        try(Connection cn = ds.getConnection()){
+            PreparedStatement preparedStatement = cn.prepareStatement(sql);
             preparedStatement.setString(1, nombre);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
 
@@ -96,7 +95,8 @@ public class RepositorioUsuariosSql implements RepositorioUsuarioInterface {
     @Override
     public List<User> todosLosUsuarios() {
         String sql = "select * from users";
-        try(Statement statement = connection.createStatement()){
+        try(Connection cn = ds.getConnection()){
+            Statement statement = cn.createStatement();
            ResultSet resultSet =  statement.executeQuery(sql);
            List<User> users = new ArrayList<>();
             while(resultSet.next()){
@@ -119,7 +119,8 @@ public class RepositorioUsuariosSql implements RepositorioUsuarioInterface {
     public boolean borrarPorId(long id) {
 
         String sql = "delete from users where id = (?)";
-        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try(Connection cn = ds.getConnection()){
+            PreparedStatement preparedStatement = cn.prepareStatement(sql);
                 preparedStatement.setLong(1, id);
                 int rows =  preparedStatement.executeUpdate();
                 return rows > 0;
@@ -129,6 +130,6 @@ public class RepositorioUsuariosSql implements RepositorioUsuarioInterface {
         }
             return false;
 
-//        return false;
+
     }
 }
